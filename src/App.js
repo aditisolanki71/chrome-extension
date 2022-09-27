@@ -1,5 +1,4 @@
 import JustNotSorry from "./components/JustNotSorry"
-import './App.css';
 
 function App() {
   return (

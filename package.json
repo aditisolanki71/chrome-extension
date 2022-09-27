@@ -12,9 +12,14 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --verbose ./spec",
+    "test:watch": "npm run test -- --watch",
+    "build": "webpack --config webpack.config.js",
+    "build:watch": "webpack --config webpack.config.js --watch",
+    "webext:run": "sleep 10 && web-ext run --source-dir ./build/ --start-url gmail.com",
+    "webext:lint": "web-ext lint -s ./build",
+    "start:firefox": "concurrently \"npm:build:watch\" \"npm:webext:run\"",
+    "start:chrome": "concurrently \"npm:build:watch\" \"npm:webext:run -- -t chromium\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -34,5 +39,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.19.0",
+    "@babel/preset-env": "^7.19.1",
+    "concurrently": "^7.4.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "web-ext": "^7.2.0",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
   }
 }
